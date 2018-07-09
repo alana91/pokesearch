@@ -1,6 +1,6 @@
 # pokésearch
 
-> [PokéSearch](https://pokeapi.co/) client built with Vue.js.
+> [Pokéapi](https://pokeapi.co/) client built with Vue.js.
 
 ## Build Setup
 
