@@ -122,13 +122,14 @@ export default {
         ];
       }
       if (this.$route.name === "moves") {
-        if (this.form.selected == "move-ailment") {
+        if (this.form.selected === "move-ailment") {
           return [
             {
-              "Move examples": this.buildJointString(
-                response.data.moves.slice(0, 3),
-                "name"
-              )
+              "Move examples":
+                this.buildJointString(
+                  response.data.moves.slice(0, 3),
+                  "name"
+                ) || "unknown"
             }
           ];
         }
@@ -159,13 +160,11 @@ export default {
     },
     isFormValid(e) {
       e.preventDefault();
-
       if (!this.form.selected | !this.form.searchText) {
         this.selectState = this.form.selected ? null : false;
         this.searchTextState = this.form.searchText ? null : false;
         return false;
       }
-
       return true;
     },
     makeRequest() {
@@ -173,18 +172,14 @@ export default {
       this.showLoader = true;
       axios
         .get(
-          `https://pokeapi.co/api/v2/${this.form.selected}/${
-            this.form.searchText
-          }/`,
+          `https://pokeapi.co/api/v2/${this.form.selected}/${this.form.searchText}/`,
           {
             headers: { Accept: "application/json" }
           }
         )
         .then(response => {
           this.showLoader = false;
-          this.cardTitle = `<b>${this.capitalize(
-            response.data.name.replace("-", " ")
-          )}</b>`;
+          this.cardTitle = `<b>${this.capitalize(response.data.name.replace("-", " "))}</b>`;
           this.items = this.getItems(response);
           this.showResult = true;
           this.resetForm();
